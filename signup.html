@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
+    <title>Scholarly - Sign Up</title>
+</head>
+<body>
+    <div class="container">
+        <img src="SCHOLARLY.png" alt="Logo" style="height: 250px; width: 250px; opacity: 100;">
+        <form action="signup.php" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <button class="btn" type="submit">Sign Up</button>
+            <button class="btn" style="margin-left: 5rem;" onclick="window.location.href='login.html'">Login</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,6 +1,25 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="login.css" type="stylesheet">
-    <title>Login Page</title>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
+    <title>Scholarly - Login</title>
 </head>
+<body>
+    <div class="container">
+        <img src="SCHOLARLY.png" alt="Logo" style="height: 250px; width: 250px; opacity: 100;">
+        <form action="login.php" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required> <!-- Added name="username" -->
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required> <!-- Added name="password" -->
+
+            <button class="btn" type="submit">Login</button>
+            <button class="btn" style="margin-left: 5rem;" onclick="window.location.href='signup.html';">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>

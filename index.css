@@ -1,4 +1,111 @@
 :root {
-    --clr-accent: #000744;
-    --clr-rgba: #ffffff;
+    --clr-primary: #342c7c; /* Primary color */
+    --clr-background: #00ccff; /* Light background color */
+    --clr-accent: #040036; /* Darker accent color */
+    --clr-white: #ffffff; /* White color for text */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('login.jpg'); 
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: rgba(141, 141, 141, 1.0);
+    border-radius: 10px;
+    padding: 2rem;
+    opacity: 0.5;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 1.0);
+    text-align: center;
+    width: 350px;
+}
+
+h1 {
+    color: var(--clr-accent);
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem; /* Increased font size */
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0 0.25rem; /* Add spacing above each label */
+    color: var(--clr-accent);
+    font-size: 1rem;
+    text-align: left;
+    font-weight: bolder;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0 0.5rem 0; /* Increased margin-bottom for more space */
+    border: None;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    font-weight: bolder;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    outline: none;
+    border: 2px solid var(--clr-accent);
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    color: var(--clr-primary);
+    background-color: var(--clr-white);
+    border: None;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 33%;
+    margin-top: 5rem; /* Added margin-top to increase space above the button */
+    transition: all 0.3s ease-in-out;
+    position: relative; 
+    overflow: hidden; 
+}
+
+.btn:hover {
+    background-color: var(--clr-primary);
+    color: var(--clr-white);
+    animation: buttonHover 0.5s forwards; /* Trigger animation on hover */
+}
+
+@keyframes buttonHover {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+p {
+    margin-top: 1rem;
+    color: #000000;
+    font-size: 0.9rem;
 }
