@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sss", $username, $hashed_password, $email); // Bind email as well
 
         if ($stmt->execute()) {
-            echo "<script>alert('Registration successful! You can now log in.'); window.location.href='login.html';</script>";
+            echo "<script>alert('Registration successful!'); window.location.href='teacher_dashboard.html';</script>";
         } else {
             echo "<script>alert('Error occurred during registration. Please try again.');</script>";
         }
