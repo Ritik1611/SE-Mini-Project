@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="add_student.css">
     <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
-    <title>Attendance Management</title>
     <style>
         /* Additional styling for the attendance form */
         #rollNumbers ul {
@@ -54,20 +54,27 @@
 
     <div class="container">
         <h1>Take Attendance</h1>
-        <form id="attendanceForm" action="attendance_submit.php" method="POST">
+        <!-- First form to select division -->
+        <form id="attendanceForm" method="POST">
             <label for="division">Division:</label>
             <input type="text" id="division" name="division" placeholder="Enter class" required>
-
             <button type="submit" class="btn">Check Roll Numbers</button>
         </form>
 
+        <!-- Second form to submit attendance -->
         <form id="rollNumbersForm" method="POST" action="submit_attendance.php">
             <input type="hidden" id="division_hidden" name="division_hidden">
+
+            <!-- Subject input field -->
+            <label for="subject">Name of the Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Enter subject" required>
+
             <div id="rollNumbers" class="roll-numbers"></div>
             <button type="submit" id="submitAttendanceBtn" style="display: none;" class="btn">Submit Attendance</button>
         </form>        
     </div>
 
+    <!-- Modal for settings -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="toggleModal()">&times;</span>
@@ -108,7 +115,7 @@
                             // Attendance status radio buttons
                             const presentLabel = document.createElement("label");
                             const absentLabel = document.createElement("label");
-                            presentLabel.style = "margin-left: 1000px";
+                            presentLabel.style = "margin-left: 50px;";
                             presentLabel.textContent = "Present";
                             absentLabel.textContent = "Absent";
 
@@ -123,10 +130,10 @@
                             absentInput.name = `attendance_status_${roll}`;
                             absentInput.value = "Absent";
 
+                            // Append elements to the list item
                             listItem.appendChild(checkboxInput);
-                            listItem.appendChild(document.createTextNode(roll));
+                            listItem.appendChild(document.createTextNode(`Roll No: ${roll}`));
 
-                            // Append attendance status options
                             listItem.appendChild(presentLabel);
                             listItem.appendChild(presentInput);
                             listItem.appendChild(absentLabel);
