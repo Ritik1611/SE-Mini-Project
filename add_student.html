@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="add_student.css">
+    <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
+    <title>Teacher Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-items">
+                <a href="teacher_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="add_student.html" class="nav-item">Add a Student</a>
+                <a href="give_marks.html" class="nav-item">Give Marks</a>
+                <a href="attendance.html" class="nav-item">Take Attendance</a>
+            </div>
+            <div class="settings">
+                <button class="settings-btn" onclick="toggleModal()">
+                    <img src="settings-icon.png" alt="Settings" class="settings-icon">
+                </button>
+            </div>
+        </nav>
+        
+        <div class="dashboard-section">
+            <h2>Add a Student</h2>
+            <form action="add_student.php" method="POST">
+                <label for="student-name">Name:</label>
+                <input type="text" id="student-name" name="student-name" placeholder="Enter student's name" required>
+
+                <label for="student-division">Division:</label>
+                <input type="text" id="student-division" name="student-division" placeholder="Enter division" required>
+
+                <label for="student-rollno">Roll No:</label>
+                <input type="number" id="student-rollno" name="student-rollno" placeholder="Enter roll number" required>
+
+                <button class="btn" type="submit">Add Student</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for My Account and Logout -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <button class="drop-items" onclick="window.location.href='account_details.html'">My Account</button>
+            <button class="drop-items"  onclick="window.location.href='logout.php'">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        // Close the modal when the user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

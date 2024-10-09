@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="add_student.css">
+    <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
+    <title>Attendance Management</title>
+    <style>
+        /* Additional styling for the attendance form */
+        #rollNumbers ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #rollNumbers li {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        /* Styling the inputs and labels */
+        input[type="checkbox"], input[type="radio"] {
+            margin-left: 15px;
+            margin-right: 10px;
+            transform: scale(1.3); /* Larger size for inputs */
+        }
+
+        label {
+            margin-right: 15px;
+        }
+
+        #rollNumbers h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-items">
+                <a href="teacher_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="add_student.html" class="nav-item">Add a Student</a>
+                <a href="give_marks.html" class="nav-item">Give Marks</a>
+                <a href="attendance.html" class="nav-item">Take Attendance</a>
+            </div>
+            <div class="settings">
+                <button class="settings-btn" onclick="toggleModal()">
+                    <img src="settings-icon.png" alt="Settings" class="settings-icon">
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1>Take Attendance</h1>
+        <form id="attendanceForm" action="attendance_submit.php" method="POST">
+            <label for="division">Division:</label>
+            <input type="text" id="division" name="division" placeholder="Enter class" required>
+
+            <button type="submit" class="btn">Check Roll Numbers</button>
+        </form>
+
+        <form id="rollNumbersForm" method="POST" action="submit_attendance.php">
+            <input type="hidden" id="division_hidden" name="division_hidden">
+            <div id="rollNumbers" class="roll-numbers"></div>
+            <button type="submit" id="submitAttendanceBtn" style="display: none;" class="btn">Submit Attendance</button>
+        </form>        
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal()">&times;</span>
+            <button class="drop-items" onclick="window.location.href='account_details.html'">My Account</button>
+            <button class="drop-items" onclick="window.location.href='logout.php'">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("attendanceForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            const division = document.getElementById("division").value;
+
+            // Set the value of the hidden division field in rollNumbersForm
+            document.getElementById("division_hidden").value = division;
+
+            // Fetch roll numbers based on the entered division
+            fetch(`get_roll_numbers.php?division=${division}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.json();
+                })
+                .then(data => {
+                    const rollNumbersDiv = document.getElementById("rollNumbers");
+                    rollNumbersDiv.innerHTML = "<h2>Select Roll Numbers and Attendance Status:</h2>";
+                    if (data.length > 0) {
+                        const list = document.createElement("ul");
+                        data.forEach(roll => {
+                            const listItem = document.createElement("li");
+
+                            // Checkbox for roll number selection (checked by default)
+                            const checkboxInput = document.createElement("input");
+                            checkboxInput.type = "checkbox"; 
+                            checkboxInput.name = "roll_no[]"; 
+                            checkboxInput.value = roll;
+                            checkboxInput.checked = true; // Set the checkbox to be checked by default
+
+                            // Attendance status radio buttons
+                            const presentLabel = document.createElement("label");
+                            const absentLabel = document.createElement("label");
+                            presentLabel.style = "margin-left: 1000px";
+                            presentLabel.textContent = "Present";
+                            absentLabel.textContent = "Absent";
+
+                            const presentInput = document.createElement("input");
+                            presentInput.type = "radio";
+                            presentInput.name = `attendance_status_${roll}`; // Each roll number gets its own attendance status group
+                            presentInput.value = "Present";
+                            presentInput.checked = true; // Set Present as default
+
+                            const absentInput = document.createElement("input");
+                            absentInput.type = "radio";
+                            absentInput.name = `attendance_status_${roll}`;
+                            absentInput.value = "Absent";
+
+                            listItem.appendChild(checkboxInput);
+                            listItem.appendChild(document.createTextNode(roll));
+
+                            // Append attendance status options
+                            listItem.appendChild(presentLabel);
+                            listItem.appendChild(presentInput);
+                            listItem.appendChild(absentLabel);
+                            listItem.appendChild(absentInput);
+
+                            list.appendChild(listItem);
+                        });
+                        rollNumbersDiv.appendChild(list);
+                        document.getElementById("submitAttendanceBtn").style.display = "block"; // Show the submit button
+                    } else {
+                        rollNumbersDiv.innerHTML += "<p>No roll numbers found for this division.</p>";
+                        document.getElementById("submitAttendanceBtn").style.display = "none"; // Hide the submit button if no roll numbers
+                    }
+                })
+                .catch(error => {
+                    const rollNumbersDiv = document.getElementById("rollNumbers");
+                    rollNumbersDiv.innerHTML = `<p>Error fetching roll numbers: ${error.message}</p>`;
+                    document.getElementById("submitAttendanceBtn").style.display = "none"; // Hide the submit button if an error occurs
+                });
+        };
+
+        function toggleModal() {
+            const modal = document.getElementById("modal");
+            modal.style.display = modal.style.display === "block" ? "none" : "block";
+        }
+
+        // Close the modal when the user clicks anywhere outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

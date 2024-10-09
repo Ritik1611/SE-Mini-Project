@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         if (password_verify($pass, $row['pass'])) {
             $_SESSION['username'] = $user;
-            header("Location: index.html"); 
+            header("Location: teacher_dashboard.html"); 
             exit;
         } else {
             echo "<script>alert('Incorrect password!'); window.location.href='login.html';</script>";
