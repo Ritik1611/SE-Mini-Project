@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="add_student.css">
+    <link rel="icon" type="image/x-icon" href="SCHOLARLY.ico">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-items">
+                <a href="teacher_dashboard.html" class="nav-item">Dashboard</a>
+                <a href="add_student.html" class="nav-item">Add a Student</a>
+                <a href="give_marks.html" class="nav-item">Give Marks</a>
+                <a href="attendance.html" class="nav-item">Take Attendance</a>
+            </div>
+            <div class="settings">
+                <button class="settings-btn" onclick="toggleModal()">
+                    <img src="settings-icon.png" alt="Settings" class="settings-icon">
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal()">&times;</span>
+            <button class="drop-items" onclick="window.location.href='account_details.html'">My Account</button>
+            <button class="drop-items" onclick="window.location.href='index.html'">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById("modal");
+            modal.style.display = modal.style.display === "block" ? "none" : "block";
+        }
+
+        // Close the modal when the user clicks anywhere outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
