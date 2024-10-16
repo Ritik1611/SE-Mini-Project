@@ -12,3 +12,6 @@ Database name : se_mini_project
 ![alt text](image-2.png)
 4) Marks table:
 ![alt text](image-3.png)
+
+
+Hello There, I hope you liked our website !!!
